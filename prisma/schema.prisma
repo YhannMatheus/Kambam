@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String       @id @default(uuid())
+  email     String       @unique
+  password  String
+  name      String
+  teams     TeamMember[]
+  createdAt DateTime     @default(now())
+}
+
+model Team {
+  id        String       @id @default(uuid())
+  name      String
+  members   TeamMember[]
+  projects  Project[]
+  createdAt DateTime     @default(now())
+}
+
+model TeamMember {
+  id     String @id @default(uuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  team   Team   @relation(fields: [teamId], references: [id])
+  teamId String
+  role   String @default("member")
+}
+
+model Project {
+  id        String   @id @default(uuid())
+  name      String
+  team      Team?    @relation(fields: [teamId], references: [id])
+  teamId    String?
+  columns   Column[]
+  createdAt DateTime @default(now())
+}
+
+model Column {
+  id        String  @id @default(uuid())
+  name      String
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+  tasks     Task[]
+  order     Int
+}
+
+model Task {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  column      Column   @relation(fields: [columnId], references: [id])
+  columnId    String
+  order       Int
+  createdAt   DateTime @default(now())
+}

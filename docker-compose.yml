@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  db:
+    image: bitnami/postgresql:latest
+    container_name: kambam-db
+    restart: always
+    environment:
+      - POSTGRESQL_USERNAME=poraygua
+      - POSTGRESQL_PASSWORD=kambam
+      - POSTGRESQL_DATABASE=kambamdb
+    ports:
+      - '5432:5432'
+    volumes:
+      - db_data:/bitnami/postgresql
+volumes:
+  db_data:
