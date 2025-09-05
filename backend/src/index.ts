@@ -1,15 +1,24 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { DatabaseService } from './core/database/database.js';
+import { UserRoutes } from './users/infraestructure/users.infraestructure.js';
+import { ProjectRoutes } from './projects/infraestructure/projects.infraestructure.js';
+import { ColumnRoutes } from './columns/infraestructure/columns.infraestructure.js';
+import { TaskRoutes } from './tasks/infraestructure/tasks.infraestructure.js';
 
-// Carrega variáveis de ambiente
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware para parsing JSON
 app.use(express.json());
+
+// Registrar todas as rotas da API
+app.use('/api/users', UserRoutes);
+app.use('/api/projects', ProjectRoutes);
+app.use('/api/columns', ColumnRoutes);
+app.use('/api/tasks', TaskRoutes);
+
 
 // Rota de teste
 app.get('/health', (req, res) => {
@@ -21,13 +30,11 @@ app.get('/health', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('API KAMBAM rodando com UUIDs!');
+  res.send('API KAMBAM rodando!');
 });
 
-// Inicia o servidor
 async function startServer() {
   try {
-    // Conecta ao banco de dados
     await DatabaseService.connect();
     console.log('✅ Banco de dados conectado com sucesso');
 
@@ -41,7 +48,6 @@ async function startServer() {
   }
 }
 
-// Tratamento de sinais para shutdown graceful
 process.on('SIGINT', async () => {
   console.log('\n🔄 Encerrando servidor...');
   await DatabaseService.disconnect();
