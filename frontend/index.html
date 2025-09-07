@@ -1,13 +1,115 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban de Projetos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Quadros de Projetos</div>
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="search-input" placeholder="Pesquisar projetos...">
+        </div>
+        <div class="user-actions">
+            <button id="filter-btn"><i class="fas fa-filter"></i> Filtrar</button>
+            <button id="new-project-btn"><i class="fas fa-plus"></i> Novo Projeto</button>
+            <button id="logout-btn" title="Sair"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+    </header>
+
+    <div class="kanban-container" id="kanban-container">
+        <!-- Colunas e tarefas serão renderizadas dinamicamente aqui -->
+    </div>
+
+    <!-- Modal para adicionar/editar projeto -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Novo Projeto</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="project-form">
+                <div class="form-group">
+                    <label for="project-title">Título do Projeto</label>
+                    <input type="text" id="project-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="project-description">Descrição</label>
+                    <textarea id="project-description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="project-priority">Prioridade</label>
+                    <select id="project-priority">
+                        <option value="high">Alta</option>
+                        <option value="medium">Média</option>
+                        <option value="low">Baixa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="project-assignee">Responsável</label>
+                    <input type="text" id="project-assignee">
+                </div>
+                <div class="form-group">
+                    <label for="project-due-date">Data de Vencimento</label>
+                    <input type="date" id="project-due-date">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn">Cancelar</button>
+                    <button type="submit">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para adicionar tarefa -->
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Nova Tarefa</h2>
+                <span class="close-task">&times;</span>
+            </div>
+            <form id="task-form">
+                <div class="form-group">
+                    <label for="task-title">Título da Tarefa</label>
+                    <input type="text" id="task-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="task-description">Descrição</label>
+                    <textarea id="task-description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="task-priority">Prioridade</label>
+                    <select id="task-priority">
+                        <option value="high">Alta</option>
+                        <option value="medium">Média</option>
+                        <option value="low">Baixa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="task-assignee">Responsável</label>
+                    <input type="text" id="task-assignee">
+                </div>
+                <div class="form-group">
+                    <label for="task-due-date">Data de Vencimento</label>
+                    <input type="date" id="task-due-date">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-task-btn">Cancelar</button>
+                    <button type="submit">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/kanban.js"></script>
+    <script src="js/app.js"></script>
+</body>
 </html>

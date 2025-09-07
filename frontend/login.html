@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Kanban</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            color: #4361ee;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .logo p {
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4361ee;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #4361ee;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #3a56d4;
+        }
+
+        .btn:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .toggle-form {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .toggle-form a {
+            color: #4361ee;
+            text-decoration: none;
+        }
+
+        .toggle-form a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1><i class="fas fa-columns"></i> Kanban</h1>
+            <p>Gerencie seus projetos com eficiência</p>
+        </div>
+
+        <div id="message"></div>
+
+        <!-- Formulário de Login -->
+        <form id="login-form">
+            <h2 style="margin-bottom: 20px; text-align: center;">Entrar</h2>
+            
+            <div class="form-group">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="login-password">Senha</label>
+                <input type="password" id="login-password" required>
+            </div>
+
+            <button type="submit" class="btn" id="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Entrar
+            </button>
+
+            <div class="toggle-form">
+                <p>Não tem uma conta? <a href="#" id="show-register">Cadastre-se</a></p>
+            </div>
+        </form>
+
+        <!-- Formulário de Registro -->
+        <form id="register-form" class="hidden">
+            <h2 style="margin-bottom: 20px; text-align: center;">Cadastrar</h2>
+            
+            <div class="form-group">
+                <label for="register-name">Nome</label>
+                <input type="text" id="register-name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="register-email">Email</label>
+                <input type="email" id="register-email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="register-password">Senha</label>
+                <input type="password" id="register-password" required>
+            </div>
+
+            <button type="submit" class="btn" id="register-btn">
+                <i class="fas fa-user-plus"></i> Cadastrar
+            </button>
+
+            <div class="toggle-form">
+                <p>Já tem uma conta? <a href="#" id="show-login">Entrar</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

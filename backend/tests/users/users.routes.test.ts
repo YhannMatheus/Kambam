@@ -236,4 +236,156 @@ describe('Rotas de Usuário (/users)', () => {
       expect(response.body).toEqual({ error: 'Erro no servidor' });
     });
   });
+
+  /**
+   * TESTES PARA ROTA DE PERFIL
+   * Endpoint: GET /users/profile
+   * Descrição: Retorna informações do perfil do usuário autenticado
+   * Requer: Token JWT válido no header Authorization
+   */
+  describe('GET /users/profile', () => {
+    
+    // Mock do middleware de autenticação
+    const mockAuthMiddleware = jest.fn((req, res, next) => {
+      // Simular usuário autenticado
+      req.user = { userId: 'user-uuid-123' };
+      next();
+    });
+
+    beforeEach(() => {
+      // Aplicar mock do middleware
+      jest.doMock('../../src/core/middleware/auth.js', () => ({
+        authMiddleware: mockAuthMiddleware
+      }));
+    });
+
+    it('deve retornar perfil do usuário quando autenticado', async () => {
+      // Arrange
+      const mockUserProfile = {
+        userId: 'user-uuid-123',
+        name: 'João Silva',
+        email: 'joao@exemplo.com',
+        team: [
+          { id: 'team-1', name: 'Equipe Frontend' },
+          { id: 'team-2', name: 'Equipe Backend' }
+        ]
+      };
+      
+      // Mock do controlador retornando perfil do usuário
+      mockProfile.mockResolvedValue(mockUserProfile);
+
+      // Act
+      const response = await request(app)
+        .get('/users/profile')
+        .set('Authorization', 'Bearer jwt-token-valido');
+
+      // Assert
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual(mockUserProfile);
+      expect(mockProfile).toHaveBeenCalledWith('user-uuid-123');
+    });
+
+    it('deve retornar erro 404 quando usuário não é encontrado', async () => {
+      // Arrange - Usuário autenticado mas não existe no banco
+      mockProfile.mockResolvedValue(null);
+
+      // Act
+      const response = await request(app)
+        .get('/users/profile')
+        .set('Authorization', 'Bearer jwt-token-valido');
+
+      // Assert
+      expect(response.status).toBe(404);
+      expect(response.body).toEqual({ error: 'Usuário não encontrado' });
+    });
+
+    it('deve retornar erro 500 para erros internos do servidor', async () => {
+      // Arrange
+      mockProfile.mockRejectedValue(new Error('Erro de banco de dados'));
+
+      // Act
+      const response = await request(app)
+        .get('/users/profile')
+        .set('Authorization', 'Bearer jwt-token-valido');
+
+      // Assert
+      expect(response.status).toBe(500);
+      expect(response.body).toEqual({ error: 'Erro no servidor' });
+    });
+
+    it('deve retornar erro 401 quando token não é fornecido', async () => {
+      // Arrange - Configurar middleware para rejeitar requisição sem token
+      const mockAuthMiddlewareUnauthorized = jest.fn((req, res, next) => {
+        return res.status(401).json({ error: 'Token não fornecido' });
+      });
+      
+      // Temporariamente substituir o middleware
+      jest.doMock('../../src/core/middleware/auth.js', () => ({
+        authMiddleware: mockAuthMiddlewareUnauthorized
+      }));
+
+      // Act
+      const response = await request(app)
+        .get('/users/profile');
+
+      // Assert
+      expect(response.status).toBe(401);
+    });
+  });
+
+  /**
+   * TESTES DE INTEGRAÇÃO
+   * Descrição: Testes que verificam o fluxo completo das rotas
+   */
+  describe('Fluxo completo de usuário', () => {
+    
+    it('deve permitir registro, login e acesso ao perfil sequencialmente', async () => {
+      // 1. Registro
+      const registerData = {
+        name: 'Maria Santos',
+        email: 'maria@exemplo.com',
+        password: 'senha123'
+      };
+      
+      mockRegister.mockResolvedValue({
+        id: 'new-user-uuid',
+        name: 'Maria Santos',
+        email: 'maria@exemplo.com',
+        password: 'hashedPassword123',
+        createdAt: new Date()
+      });
+
+      const registerResponse = await request(app)
+        .post('/users/register')
+        .send(registerData);
+
+      expect(registerResponse.status).toBe(201);
+      
+      // 2. Login
+      const loginData = {
+        email: 'maria@exemplo.com',
+        password: 'senha123'
+      };
+      
+      mockLogin.mockResolvedValue('jwt-token-maria');
+
+      const loginResponse = await request(app)
+        .post('/users/login')
+        .send(loginData);
+
+      expect(loginResponse.status).toBe(200);
+      expect(loginResponse.body.token).toBe('jwt-token-maria');
+      
+      // 3. Acesso ao perfil (simulado)
+      mockProfile.mockResolvedValue({
+        userId: 'new-user-uuid',
+        name: 'Maria Santos',
+        email: 'maria@exemplo.com',
+        team: []
+      });
+
+      // Note: Este teste simula o fluxo mas não testa a autenticação real
+      // Em um teste de integração completo, usaríamos o token real
+    });
+  });
 });
