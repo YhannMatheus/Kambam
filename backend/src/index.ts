@@ -16,6 +16,10 @@ app.use(cors({
   origin: [
     'http://localhost:5173', // Frontend local
     'http://localhost:3000', // Backend local (caso necessário)
+    'http://localhost:8080', // Python http.server
+    'http://127.0.0.1:8080', // Python http.server alternativo
+    'http://localhost:5500', // Live Server
+    'http://127.0.0.1:5500', // Live Server alternativo
     // Adicione outras origens permitidas aqui
   ],
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
