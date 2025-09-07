@@ -6,8 +6,9 @@ export class ValidatorsService {
     }
     
     static isValidPassword(password: string): boolean {
-        const minLength = 6;
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/; // Pelo menos uma letra e um número
+        const minLength = 8;
+        // Pelo menos 8 caracteres, uma letra maiúscula, uma minúscula e um número
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
         return password.length >= minLength && passwordRegex.test(password);
     }
 }

@@ -23,44 +23,49 @@ frontend/
 ## Como Executar
 
 ### Opção 1: Abrir diretamente no navegador
+
 1. Navegue até a pasta `frontend`
 2. Abra o arquivo `index.html` no seu navegador
 
 ### Opção 2: Servidor local com Python
-```bash
+
+``` bash
 cd frontend
 python -m http.server 8080
 ```
+
 Acesse: http://localhost:8080
 
 ### Opção 3: Servidor local com Node.js
-```bash
+
+``` bash
 npm install -g serve
 cd frontend
 serve .
 ```
 
 ### Opção 4: Live Server (VS Code)
+
 1. Instale a extensão "Live Server" no VS Code
 2. Clique com o botão direito no `index.html`
 3. Selecione "Open with Live Server"
 
 ## Funcionalidades
 
-- ✅ Sistema de autenticação (login/registro)
-- ✅ Visualização de projetos em formato Kanban
-- ✅ Criação de novos projetos
-- ✅ Criação de novas tarefas
-- ✅ Drag and drop entre colunas
-- ✅ Busca por tarefas
-- ✅ Design responsivo
-- ✅ Integração completa com backend
+* ✅ Sistema de autenticação (login/registro)
+* ✅ Visualização de projetos em formato Kanban
+* ✅ Criação de novos projetos
+* ✅ Criação de novas tarefas
+* ✅ Drag and drop entre colunas
+* ✅ Busca por tarefas
+* ✅ Design responsivo
+* ✅ Integração completa com backend
 
 ## Configuração
 
 Edite o arquivo `js/config.js` para alterar a URL do backend:
 
-```javascript
+``` javascript
 const CONFIG = {
     API_BASE: 'http://localhost:3000', // Altere conforme necessário
     // ...
@@ -69,15 +74,17 @@ const CONFIG = {
 
 ## Dependências
 
-- Font Awesome 6.4.0 (via CDN)
-- Navegador moderno com suporte a ES6+
+* Font Awesome 6.4.0 (via CDN)
+* Navegador moderno com suporte a ES6+
 
 ## Customização
 
 ### Adicionando novos estilos
+
 Edite `css/styles.css` para personalizar a aparência.
 
 ### Adicionando novas funcionalidades
+
 1. Para API: edite `js/api.js`
 2. Para modais: edite `js/modal.js`
 3. Para o quadro Kanban: edite `js/kanban.js`
@@ -85,10 +92,10 @@ Edite `css/styles.css` para personalizar a aparência.
 
 ## Próximas Melhorias
 
-- [ ] Autenticação de usuários
-- [ ] Notificações toast
-- [ ] Seletor de projetos
-- [ ] Edição de tarefas
-- [ ] Filtros avançados
-- [ ] Modo escuro
-- [ ] Offline support
+* [ ] Autenticação de usuários
+* [ ] Notificações toast
+* [ ] Seletor de projetos
+* [ ] Edição de tarefas
+* [ ] Filtros avançados
+* [ ] Modo escuro
+* [ ] Offline support

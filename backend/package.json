@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "npm run clean && tsc",
+    "clean": "if (Test-Path dist) { Remove-Item -Recurse -Force dist }",
     "start": "node dist/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
