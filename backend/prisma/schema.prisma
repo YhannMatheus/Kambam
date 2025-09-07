@@ -8,11 +8,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  USER
+  SUPPORT
+}
+
+enum TeamMemberRole {
+  MEMBER
+  ADMIN
+}
+
 model User {
   id        String       @id @default(uuid())
   email     String       @unique
   password  String
   name      String
+  role      UserRole     @default(USER)
   teams     TeamMember[]
   sessions  Session[]
   createdAt DateTime     @default(now())
@@ -27,12 +38,12 @@ model Team {
 }
 
 model TeamMember {
-  id     String @id @default(uuid())
-  user   User   @relation(fields: [userId], references: [id])
+  id     String         @id @default(uuid())
+  user   User           @relation(fields: [userId], references: [id])
   userId String
-  team   Team   @relation(fields: [teamId], references: [id])
+  team   Team           @relation(fields: [teamId], references: [id])
   teamId String
-  role   String @default("member")
+  role   TeamMemberRole @default(MEMBER)
 }
 
 model Project {

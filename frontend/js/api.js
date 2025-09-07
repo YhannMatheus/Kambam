@@ -84,4 +84,21 @@ class ApiService {
             method: 'DELETE'
         });
     }
+
+    // Teams
+    static async getTeams() {
+        return this.request(CONFIG.ENDPOINTS.TEAMS || '/teams');
+    }
+
+    static async createTeam(teamData) {
+        return this.request(CONFIG.ENDPOINTS.TEAMS || '/teams', {
+            method: 'POST',
+            body: JSON.stringify(teamData)
+        });
+    }
+
+    // Profile
+    static async getProfile() {
+        return this.request(CONFIG.ENDPOINTS.PROFILE || '/profile');
+    }
 }

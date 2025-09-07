@@ -6,6 +6,7 @@ import { UserRoutes } from './users/infraestructure/users.infraestructure.js';
 import { ProjectRoutes } from './projects/infraestructure/projects.infraestructure.js';
 import { ColumnRoutes } from './columns/infraestructure/columns.infraestructure.js';
 import { TaskRoutes } from './tasks/infraestructure/tasks.infraestructure.js';
+import { AdminRoutes } from './admin/infraestructure/admin.infrastructure.js';
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use('/api/users', UserRoutes);
 app.use('/api/projects', ProjectRoutes);
 app.use('/api/columns', ColumnRoutes);
 app.use('/api/tasks', TaskRoutes);
+app.use('/api/admin', AdminRoutes);
 
 
 // Rota de teste

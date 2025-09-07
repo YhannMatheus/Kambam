@@ -1,5 +1,5 @@
 import prisma from '../../core/database/database.js';
-import type { User } from '../../../generated/prisma/index.js';
+import type { User, UserRole } from '../../../generated/prisma/index.js';
 
 export class UserRepository {
   async findByEmail(email: string): Promise<User | null> {
@@ -20,7 +20,7 @@ export class UserRepository {
     });
   }
 
-  async update(id: string, data: Partial<{ name: string; email: string; password: string }>): Promise<User> {
+  async update(id: string, data: Partial<{ name: string; email: string; password: string; role: UserRole }>): Promise<User> {
     return prisma.user.update({
       where: { id } as any,
       data
@@ -39,6 +39,7 @@ export class UserRepository {
         id: true,
         name: true,
         email: true,
+        role: true,
         createdAt: true
       }
     });
@@ -53,6 +54,18 @@ export class UserRepository {
     `;
 
     return teams as { id: string; name: string }[];
+  }
+
+  async findTeamMembership(userId: string, teamId: string): Promise<{ role: string } | null> {
+    return prisma.teamMember.findFirst({
+      where: {
+        userId: userId,
+        teamId: teamId
+      },
+      select: {
+        role: true
+      }
+    });
   }
 
 }

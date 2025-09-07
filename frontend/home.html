@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAMBAN - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <h1 class="logo">
+                    <i class="fas fa-columns"></i>
+                    KAMBAN
+                </h1>
+            </div>
+            <div class="header-right">
+                <div class="user-menu">
+                    <button class="user-avatar" id="user-menu-btn">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="user-name">Carregando...</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-dropdown" id="user-dropdown">
+                        <a href="#" id="profile-btn">
+                            <i class="fas fa-user"></i>
+                            Meu Perfil
+                        </a>
+                        <a href="#" id="settings-btn">
+                            <i class="fas fa-cog"></i>
+                            Configurações
+                        </a>
+                        <hr>
+                        <a href="#" id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Sair
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <div class="section-header">
+                        <h3>
+                            <i class="fas fa-users"></i>
+                            Meus Times
+                        </h3>
+                        <button class="add-btn" id="add-team-btn" title="Criar novo time">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="teams-list" id="teams-list">
+                        <div class="loading-item">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            Carregando times...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="section-header">
+                        <h3>
+                            <i class="fas fa-folder"></i>
+                            Meus Projetos
+                        </h3>
+                        <button class="add-btn" id="add-project-btn" title="Criar novo projeto">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="projects-list" id="projects-list">
+                        <div class="loading-item">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            Carregando projetos...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="section-header">
+                        <h3>
+                            <i class="fas fa-star"></i>
+                            Favoritos
+                        </h3>
+                    </div>
+                    <div class="favorites-list" id="favorites-list">
+                        <div class="empty-state">
+                            <i class="fas fa-star-o"></i>
+                            <span>Nenhum favorito ainda</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Dashboard Area -->
+            <main class="dashboard">
+                <div class="dashboard-header">
+                    <h2 id="dashboard-title">Dashboard</h2>
+                    <div class="dashboard-actions">
+                        <button class="btn btn-secondary" id="view-toggle-btn">
+                            <i class="fas fa-th-large"></i>
+                            Visualização
+                        </button>
+                        <button class="btn btn-primary" id="new-project-btn">
+                            <i class="fas fa-plus"></i>
+                            Novo Projeto
+                        </button>
+                    </div>
+                </div>
+
+                <div class="dashboard-content" id="dashboard-content">
+                    <!-- Welcome Screen -->
+                    <div class="welcome-screen" id="welcome-screen">
+                        <div class="welcome-card">
+                            <div class="welcome-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h3>Bem-vindo ao KAMBAN!</h3>
+                            <p>Organize seus projetos de forma eficiente com nossa metodologia Kanban.</p>
+                            <div class="welcome-actions">
+                                <button class="btn btn-primary" id="welcome-create-project">
+                                    <i class="fas fa-plus"></i>
+                                    Criar Primeiro Projeto
+                                </button>
+                                <button class="btn btn-secondary" id="welcome-create-team">
+                                    <i class="fas fa-users"></i>
+                                    Criar Time
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="quick-stats">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-folder"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-number" id="projects-count">0</span>
+                                    <span class="stat-label">Projetos</span>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-number" id="teams-count">0</span>
+                                    <span class="stat-label">Times</span>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-number" id="tasks-count">0</span>
+                                    <span class="stat-label">Tarefas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project View (será mostrado quando um projeto for selecionado) -->
+                    <div class="project-view" id="project-view" style="display: none;">
+                        <div class="project-header">
+                            <div class="project-info">
+                                <h3 id="current-project-name">Nome do Projeto</h3>
+                                <span class="project-team" id="current-project-team">Time: Não definido</span>
+                            </div>
+                            <div class="project-actions">
+                                <button class="btn btn-secondary" id="project-settings-btn">
+                                    <i class="fas fa-cog"></i>
+                                    Configurações
+                                </button>
+                            </div>
+                        </div>
+                        <div class="kanban-board" id="kanban-board">
+                            <!-- Colunas do Kanban serão carregadas aqui -->
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Modal para criar projeto -->
+    <div class="modal" id="create-project-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Criar Novo Projeto</h3>
+                <button class="close-btn" id="close-project-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="create-project-form">
+                <div class="form-group">
+                    <label for="project-name">Nome do Projeto *</label>
+                    <input type="text" id="project-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="project-team">Time (opcional)</label>
+                    <select id="project-team" name="teamId">
+                        <option value="">Projeto Individual</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="project-description">Descrição</label>
+                    <textarea id="project-description" name="description" rows="3"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancel-project-btn">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Criar Projeto
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para criar time -->
+    <div class="modal" id="create-team-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Criar Novo Time</h3>
+                <button class="close-btn" id="close-team-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="create-team-form">
+                <div class="form-group">
+                    <label for="team-name">Nome do Time *</label>
+                    <input type="text" id="team-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="team-description">Descrição</label>
+                    <textarea id="team-description" name="description" rows="3"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancel-team-btn">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Criar Time
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span>Carregando...</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/home.js"></script>
+</body>
+</html>

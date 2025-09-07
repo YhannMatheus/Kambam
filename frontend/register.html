@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - KAMBAN</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .register-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 450px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .register-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .register-header h1 {
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+
+        .register-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .register-form {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group i {
+            position: absolute;
+            right: 1rem;
+            top: 2.7rem;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .form-group i:hover {
+            color: #667eea;
+        }
+
+        .password-requirements {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .password-requirements ul {
+            list-style: none;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .password-requirements li {
+            margin: 0.25rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .password-requirements li i {
+            width: 16px;
+            position: static;
+        }
+
+        .requirement-valid {
+            color: #28a745 !important;
+        }
+
+        .requirement-invalid {
+            color: #dc3545 !important;
+        }
+
+        .password-match {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .match-valid {
+            color: #28a745;
+        }
+
+        .match-invalid {
+            color: #dc3545;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .register-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .register-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e1e8ed;
+        }
+
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid #f5c6cb;
+            display: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid #c3e6cb;
+            display: none;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 480px) {
+            .register-container {
+                margin: 1rem;
+                border-radius: 15px;
+            }
+            
+            .register-header {
+                padding: 1.5rem;
+            }
+            
+            .register-form {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-header">
+            <h1><i class="fas fa-user-plus"></i> Criar Conta</h1>
+            <p>Junte-se à nossa plataforma de gerenciamento</p>
+        </div>
+
+        <form class="register-form" id="registerForm">
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+
+            <div class="form-group">
+                <label for="name">Nome Completo *</label>
+                <input type="text" id="name" name="name" required placeholder="Digite seu nome completo">
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail *</label>
+                <input type="email" id="email" name="email" required placeholder="Digite seu e-mail">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Senha *</label>
+                <input type="password" id="password" name="password" required placeholder="Digite sua senha">
+                <i class="fas fa-eye" id="togglePassword"></i>
+                
+                <div class="password-requirements" id="passwordRequirements">
+                    <strong>Requisitos da senha:</strong>
+                    <ul>
+                        <li id="lengthReq">
+                            <i class="fas fa-times requirement-invalid"></i>
+                            Mínimo 8 caracteres
+                        </li>
+                        <li id="upperReq">
+                            <i class="fas fa-times requirement-invalid"></i>
+                            Uma letra maiúscula
+                        </li>
+                        <li id="lowerReq">
+                            <i class="fas fa-times requirement-invalid"></i>
+                            Uma letra minúscula
+                        </li>
+                        <li id="numberReq">
+                            <i class="fas fa-times requirement-invalid"></i>
+                            Um número
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirmar Senha *</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirme sua senha">
+                <i class="fas fa-eye" id="toggleConfirmPassword"></i>
+                
+                <div class="password-match" id="passwordMatch" style="display: none;">
+                    <i class="fas fa-times match-invalid"></i>
+                    <span>As senhas não coincidem</span>
+                </div>
+            </div>
+
+            <button type="submit" class="register-btn" id="registerBtn" disabled>
+                <span id="registerBtnText">Criar Conta</span>
+                <span id="registerBtnLoading" style="display: none;">
+                    <span class="loading"></span>
+                    Criando conta...
+                </span>
+            </button>
+
+            <div class="login-link">
+                <p>Já tem uma conta? <a href="login.html">Fazer login</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/register.js"></script>
+</body>
+</html>

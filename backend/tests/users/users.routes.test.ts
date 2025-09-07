@@ -348,14 +348,6 @@ describe('Rotas de Usuário (/users)', () => {
         password: 'senha123'
       };
       
-      mockRegister.mockResolvedValue({
-        id: 'new-user-uuid',
-        name: 'Maria Santos',
-        email: 'maria@exemplo.com',
-        password: 'hashedPassword123',
-        createdAt: new Date()
-      });
-
       const registerResponse = await request(app)
         .post('/users/register')
         .send(registerData);
