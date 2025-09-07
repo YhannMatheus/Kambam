@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom';
+// Setup global para testes
 
 // Mock do Prisma para testes
 export const mockPrisma = {
