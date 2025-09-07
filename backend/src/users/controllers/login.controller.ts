@@ -2,6 +2,7 @@ import { UserNotFoundError } from '@/core/errors/user-not-found-error.js';
 import { userRepository } from '../domain/user.repository.js';
 import { InvalidCredentialsError } from '@/core/errors/invalid-credentials-error.js';
 import { AuthService } from '@/core/services/auth.service.js';
+import { CryptService } from '@/core/services/crypt.service.js';
 
 interface LoginData {
   email: string;
@@ -17,7 +18,10 @@ export async function login(data: LoginData) {
         throw new UserNotFoundError(email);
     }
 
-    if (user.password !== password) {
+    // Usar bcrypt para comparar senhas
+    const isPasswordValid = CryptService.comparePasswords(password, user.password);
+    
+    if (!isPasswordValid) {
         throw new InvalidCredentialsError();
     }
 
