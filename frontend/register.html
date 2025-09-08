@@ -6,6 +6,23 @@
     <title>Registro - KAMBAN</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            /* Cores Principais */
+            --primary-green: #7ed957;
+            --primary-blue: #0098db;
+            --primary-purple: #280d53;
+            --white: #ffffff;
+            
+            /* Variações */
+            --blue-light: #33aadf;
+            --blue-dark: #007bb3;
+            --purple-light: #3d1a6b;
+            
+            /* Cores de apoio */
+            --text-dark: var(--primary-purple);
+            --text-light: #6b7280;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,7 +31,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -23,9 +40,9 @@
         }
 
         .register-container {
-            background: white;
+            background: var(--white);
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(40, 13, 83, 0.2);
             overflow: hidden;
             width: 100%;
             max-width: 450px;
@@ -44,8 +61,8 @@
         }
 
         .register-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
+            color: var(--white);
             padding: 2rem;
             text-align: center;
         }
@@ -73,7 +90,7 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #333;
+            color: var(--text-dark);
             font-weight: 500;
             font-size: 0.9rem;
         }
@@ -90,7 +107,7 @@
 
         .form-group input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--primary-blue);
             background: white;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
@@ -105,7 +122,7 @@
         }
 
         .form-group i:hover {
-            color: #667eea;
+            color: var(--primary-blue);
         }
 
         .password-requirements {
@@ -135,7 +152,7 @@
         }
 
         .requirement-valid {
-            color: #28a745 !important;
+            color: var(--primary-green) !important;
         }
 
         .requirement-invalid {
@@ -151,7 +168,7 @@
         }
 
         .match-valid {
-            color: #28a745;
+            color: var(--primary-green);
         }
 
         .match-invalid {

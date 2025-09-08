@@ -1,3 +1,35 @@
+/* =============================================
+   KAMBAN - SISTEMA DE CORES PERSONALIZADO
+   ============================================= */
+:root {
+    /* Cores Principais */
+    --primary-green: #7ed957;    /* Verde principal */
+    --primary-blue: #0098db;     /* Azul principal */
+    --primary-purple: #280d53;   /* Roxo escuro */
+    --white: #ffffff;            /* Branco */
+    
+    /* Variações e tons */
+    --green-light: #a3e574;      /* Verde claro (hover) */
+    --green-dark: #6bb849;       /* Verde escuro (active) */
+    --blue-light: #33aadf;       /* Azul claro (hover) */
+    --blue-dark: #007bb3;        /* Azul escuro (active) */
+    --purple-light: #3d1a6b;     /* Roxo claro (hover) */
+    --purple-dark: #1a0934;      /* Roxo escuro (active) */
+    
+    /* Cores de apoio */
+    --background: #f8fafc;       /* Fundo geral */
+    --card-bg: var(--white);     /* Fundo dos cards */
+    --text-dark: var(--primary-purple);  /* Texto escuro */
+    --text-light: #6b7280;       /* Texto claro */
+    --border: #e5e7eb;           /* Bordas */
+    
+    /* Estados */
+    --success: var(--primary-green);
+    --info: var(--primary-blue);
+    --warning: #f59e0b;
+    --danger: #ef4444;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,8 +38,8 @@
 }
 
 body {
-    background-color: #f5f7f9;
-    color: #333;
+    background-color: var(--background);
+    color: var(--text-dark);
     padding: 20px;
 }
 
@@ -17,22 +49,22 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #fff;
+    background-color: var(--card-bg);
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(40, 13, 83, 0.1);
     margin-bottom: 30px;
 }
 
 .logo {
     font-size: 24px;
     font-weight: bold;
-    color: #4361ee;
+    color: var(--primary-blue);
 }
 
 .search-bar {
     display: flex;
     align-items: center;
-    background-color: #f5f7f9;
+    background-color: var(--background);
     padding: 8px 15px;
     border-radius: 20px;
     width: 300px;
@@ -44,6 +76,7 @@ header {
     outline: none;
     width: 100%;
     margin-left: 10px;
+    color: var(--text-dark);
 }
 
 .user-actions {
@@ -52,26 +85,28 @@ header {
 }
 
 .user-actions button {
-    background-color: #4361ee;
-    color: white;
+    background-color: var(--primary-blue);
+    color: var(--white);
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
     margin-left: 10px;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    font-weight: 500;
 }
 
 .user-actions button:hover {
-    background-color: #3a56d4;
+    background-color: var(--blue-dark);
+    transform: translateY(-1px);
 }
 
 #logout-btn {
-    background-color: #dc3545 !important;
+    background-color: var(--danger) !important;
 }
 
 #logout-btn:hover {
-    background-color: #c82333 !important;
+    background-color: #dc2626 !important;
 }
 
 /* Kanban Styles */
@@ -83,13 +118,14 @@ header {
 }
 
 .column {
-    background-color: #fff;
+    background-color: var(--card-bg);
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(40, 13, 83, 0.1);
     min-width: 300px;
     padding: 20px;
     display: flex;
     flex-direction: column;
+    border-top: 3px solid var(--primary-green);
 }
 
 .column-header {
@@ -98,50 +134,56 @@ header {
     align-items: center;
     margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border);
 }
 
 .column-title {
     font-weight: bold;
     font-size: 18px;
+    color: var(--text-dark);
 }
 
 .task-count {
-    background-color: #e9ecef;
-    color: #6c757d;
+    background-color: var(--primary-green);
+    color: var(--white);
     padding: 3px 10px;
     border-radius: 20px;
     font-size: 14px;
+    font-weight: 500;
 }
 
 .add-task {
-    color: #6c757d;
+    color: var(--text-light);
     cursor: pointer;
     font-size: 14px;
     padding: 10px;
     text-align: center;
     border-radius: 5px;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    border: 2px dashed var(--border);
 }
 
 .add-task:hover {
-    background-color: #f8f9fa;
+    background-color: var(--primary-green);
+    color: var(--white);
+    border-color: var(--primary-green);
 }
 
 /* Task Styles */
 .task {
-    background-color: #f8f9fa;
+    background-color: var(--white);
     border-radius: 8px;
     padding: 15px;
     margin-bottom: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px rgba(40, 13, 83, 0.08);
     cursor: move;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.2s ease;
+    border-left: 4px solid var(--primary-blue);
 }
 
 .task:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 12px rgba(40, 13, 83, 0.15);
 }
 
 .task-header {
@@ -153,31 +195,33 @@ header {
 .task-title {
     font-weight: bold;
     font-size: 16px;
+    color: var(--text-dark);
 }
 
 .task-priority {
     font-size: 12px;
     padding: 3px 8px;
     border-radius: 20px;
+    font-weight: 500;
 }
 
 .high {
-    background-color: #ffe5e5;
-    color: #dc3545;
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
 }
 
 .medium {
-    background-color: #fff3cd;
-    color: #856404;
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--warning);
 }
 
 .low {
-    background-color: #d4edda;
-    color: #155724;
+    background-color: rgba(126, 217, 87, 0.1);
+    color: var(--primary-green);
 }
 
 .task-description {
-    color: #6c757d;
+    color: var(--text-light);
     font-size: 14px;
     margin-bottom: 15px;
 }
